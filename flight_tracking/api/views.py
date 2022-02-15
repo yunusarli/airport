@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from .serializers import AirportSerializer, FlightSerializer
+from .serializers import AirportSerializer, CountSerializer, FlightSerializer
 from .models import Airport,Flight
 
 
@@ -17,3 +17,8 @@ class FlightViewSet(viewsets.ModelViewSet):
     """
     queryset = Flight.objects.all().order_by('take_off')
     serializer_class = FlightSerializer
+
+class CountViewSet(viewsets.ModelViewSet):
+    """ API endpoint that allows count flights to be viewed """
+    queryset = Flight.objects.all()
+    serializer_class = CountSerializer

@@ -4,8 +4,12 @@ class Airport(models.Model):
     code = models.CharField(max_length=50)
     city = models.CharField(max_length=255)
 
+    def __unicode__(self):
+        return self.code
+    
     def __str__(self):
         return self.code
+    
 
 class Flight(models.Model):
     flight_number = models.CharField(max_length=255)

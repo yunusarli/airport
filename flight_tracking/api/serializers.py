@@ -7,9 +7,32 @@ class AirportSerializer(serializers.ModelSerializer):
         fields = ['code', 'city']
 
 
+
+
 class FlightSerializer(serializers.ModelSerializer):
-    from_airport_ = serializers.ReadOnlyField()
-    to_ = serializers.ReadOnlyField()
+    #to_ = serializers.RelatedField(read_only=False,queryset=Airport.objects.all())
+    #from_ = serializers.RelatedField(read_only=False,queryset=Airport.objects.all())
     class Meta:
         model = Flight
-        fields = ['flight_number', 'take_off','landing','from_airport_','to_']
+        fields = "__all__"
+
+    def to_representation(self, obj):
+        return {
+            "flight_number": obj.flight_number,
+            "take_off": obj.take_off,
+            "landing": obj.landing,
+            'from':obj.from_airport.code,
+            'to':obj.to_airport.code,
+        }
+
+class CountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Flight
+        fields = "__all__"
+    
+    def to_representation(self,obj):
+        return {
+            'flight_number':obj.flight_number,
+            'count':len(Flight.objects.filter(flight_number=obj.flight_number))
+        }
+    

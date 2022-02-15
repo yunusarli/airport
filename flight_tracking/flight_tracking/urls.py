@@ -23,8 +23,9 @@ from rest_framework_swagger.views import get_swagger_view
 API_TITLE = "Flight Tracking"
 
 router = routers.DefaultRouter()
-router.register(r'airports', views.AirportViewSet)
-router.register(r'flights', views.FlightViewSet)
+router.register(r'airports', views.AirportViewSet,'airports')
+router.register(r'flights', views.FlightViewSet,'flights')
+router.register(r'count',views.CountViewSet,'count')
 
 schema_view = get_swagger_view(title=API_TITLE)
 
